@@ -92,6 +92,11 @@ qemu-system-x86_64 -drive format=raw,file=bootimage-blog_os.bin
 
 
 
-
+### 问题汇总
 
 `0x20...0x7e`  改成   `0x20..=0x7e`
+
+
+use of undeclared crate or module `fmt`
+
+加一行  use core::fmt;
