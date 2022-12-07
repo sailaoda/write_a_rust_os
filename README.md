@@ -1,3 +1,4 @@
+
 开发版本
 
 step 1:
@@ -96,7 +97,11 @@ qemu-system-x86_64 -drive format=raw,file=bootimage-blog_os.bin
 
 `0x20...0x7e`  改成   `0x20..=0x7e`
 
+<<<<<<< HEAD
 
 use of undeclared crate or module `fmt`
 
 加一行  use core::fmt;
+=======
+`0x20...0x7e`  改成   `0x20..=0x7e`
+>>>>>>> c5f1283a4935388dd0a2df0ec6ab1cd04f99d058
