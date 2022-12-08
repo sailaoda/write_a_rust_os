@@ -27,20 +27,27 @@ pub extern "C" fn _start() -> ! {
 } */
 
 #[no_mangle]
-pub extern "C" fn _start() -> ! {
-    vga_buffer::print_something();
+pub extern "C" fn _start() {
+    /* vga_buffer::print_something();
 
     use core::fmt::Write;
     vga_buffer::WRITER.lock().write_str("Hello again").unwrap();
     write!(vga_buffer::WRITER.lock(), ", some numbers: {} {} ", 23, 23.34).unwrap();
-
+ */
     println!("Hello World{}", "!!");
+
+    panic!("Some panic message");
 
     loop {}
 }
 
 /// 在panic时被调用
-#[panic_handler]
+/* #[panic_handler]
 fn panic(_info: &PanicInfo) -> ! {
+    loop {}
+} */
+#[panic_handler]
+fn panic(info: &PanicInfo) -> ! {
+    println!("{}", info);
     loop {}
 }
