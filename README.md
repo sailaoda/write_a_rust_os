@@ -1,5 +1,5 @@
 
-可以稳定运行的版本
+开发版本
 
 step 1:
 
@@ -93,6 +93,20 @@ qemu-system-x86_64 -drive format=raw,file=bootimage-blog_os.bin
 
 
 
-
+### 问题汇总
 
 `0x20...0x7e`  改成   `0x20..=0x7e`
+
+
+use of undeclared crate or module `fmt`
+
+加一行  use core::fmt;
+`0x20...0x7e`  改成   `0x20..=0x7e`
+
+```toml
+[dependencies]
+spin = "0.4.9"
+改成
+spin = "0.9.4"
+```
+

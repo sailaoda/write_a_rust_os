@@ -29,6 +29,13 @@ pub extern "C" fn _start() -> ! {
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     vga_buffer::print_something();
+
+    use core::fmt::Write;
+    vga_buffer::WRITER.lock().write_str("Hello again").unwrap();
+    write!(vga_buffer::WRITER.lock(), ", some numbers: {} {} ", 23, 23.34).unwrap();
+
+    println!("Hello World{}", "!!");
+
     loop {}
 }
 
