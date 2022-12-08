@@ -102,3 +102,11 @@ use of undeclared crate or module `fmt`
 
 加一行  use core::fmt;
 `0x20...0x7e`  改成   `0x20..=0x7e`
+
+```toml
+[dependencies]
+spin = "0.4.9"
+改成
+spin = "0.9.4"
+```
+

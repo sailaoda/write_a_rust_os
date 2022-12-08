@@ -149,3 +149,36 @@ pub fn print_something() {
     writer.write_string("ello! ");
     write!(writer, "The numbers are {} and {}", 42, 1.0 / 3.0).unwrap();
 }
+
+// 一个延迟初始化的静态变量，变量的值在第一次使用时计算，而不是在编译时计算
+use lazy_static::lazy_static;
+// 自旋的互斥锁
+use spin::Mutex;
+
+lazy_static! {
+    pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
+        column_position: 0,
+        color_code: ColorCode::new(Color::Yellow, Color::Black),
+        // 用于创建一个指向0xb8000地址的Buffer类型引用
+        buffer: unsafe { &mut *(0xb8000 as *mut Buffer)},
+    });
+}
+
+
+// print! 和 println! 宏
+#[macro_export]
+macro_rules! print {
+    ($($arg:tt)*) => ($crate::vga_buffer::_print(format_args!($($arg)*)));
+}
+
+#[macro_export]
+macro_rules! println {
+    () => ($crate::print!("\n"));
+    ($($arg:tt)*) => ($crate::print!("{}\n", format_args!($($arg)*)));
+}
+
+#[doc(hidden)]
+pub fn _print(args: fmt::Arguments) {
+    use core::fmt::Write;
+    WRITER.lock().write_fmt(args).unwrap();
+}
